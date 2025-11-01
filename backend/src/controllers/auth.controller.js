@@ -17,6 +17,8 @@ export const signUp = async (req, res) => {
     if (!emailRegex.test(email)) {
       return res.status(400).json({ message: "Invalid email format!." });
     }
+    const name = name.trim()
+    const email = email.toLowerCase()
     const user = await User.findOne({ email });
     if (user) {
       return res
@@ -31,8 +33,8 @@ export const signUp = async (req, res) => {
       password: hashedPassword,
     });
     if (newUser) {
-      generateToken(newUser._id, res);
-      await newUser.save();
+      const savedUser = await newUser.save();
+      generateToken(savedUser._id, res);
       res.status(201).json({
         _id: newUser._id,
         name: newUser.name,
