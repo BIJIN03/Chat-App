@@ -12,8 +12,7 @@ const PORT = process.env.PORT || 3000;
 const __dirname = path.resolve();
 // console.log(__dirname);
 
-app.use(express.json())
-
+app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRouter);
@@ -26,7 +25,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+connectDB();
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  connectDB()
 });
